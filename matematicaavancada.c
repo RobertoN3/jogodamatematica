@@ -72,26 +72,25 @@ if( sorteio == 3){
     printf("Qual o resultado da operação:\n");
     int base = (rand() % 10) + 1;
     while(base != 2 && base != 3 && base != 5 && base != 10){
-    base = (rand() % 10) + 1;  /*atualiza o valor dentro até a resposta ser 2, 3, 5, 10*/
-}
-int logaritimando;
+        base = (rand() % 10) + 1;
+    }
+    int logaritimando = (rand() % 1000) + 1;
     double logaritimo = log(logaritimando) / log(base);
-while((int)logaritimo != logaritimo){
-    logaritimando = (rand() % 1000) + 1;
-    logaritimo = log(logaritimando) / log(base);
-}
+    while((int)logaritimo != logaritimo){
+        logaritimando = (rand() % 1000) + 1;
+        logaritimo = log(logaritimando) / log(base);
+    }
 
-printf("Log_%d(%d)\n", base, logaritimando);
-int resposta3;
-scanf("%d", &resposta3);
-if(resposta3 == logaritimo){
-    printf("Acertou, Log_%d(%d) = %lg\n", base, logaritimando, logaritimo);
-    acertos++;
+    printf("Log_%d(%d)\n", base, logaritimando);
+    int resposta3;
+    scanf("%d", &resposta3);
+    if(resposta3 == logaritimo){
+        printf("Acertou, Log_%d(%d) = %lg\n", base, logaritimando, logaritimo);
+        acertos++;
     }else{
-    printf("Errou, Log_%d(%d) = %lg\n", base, logaritimando, logaritimo);
-    erros++;
-    
-}
+        printf("Errou, Log_%d(%d) = %lg\n", base, logaritimando, logaritimo);
+        erros++;
+    }
     
 }/*fim do código para log*/
 if(sorteio == 4){
