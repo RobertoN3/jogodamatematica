@@ -16,7 +16,7 @@ int numeromultB51_100(int d); //função que gera numeros dificeis de multiplica
 
 int numeromultA(int nivel, int rand); //função que retorna um numero de 1 a 10, depende do nivel
 
-
+void troca_se_menor(int *a, int *b); //função que troca os numeros de lugar, para a subtração sempre ser o maior numero - o menor numero
 
 
 int main(){
@@ -31,17 +31,17 @@ int main(){
     srand(seed);
 
     int opera;
+    int resposta; //guarda a resposta do usuario
 
     while (jogo){
 
     opera = operacao(rand());
 
-    if (opera == 1){
+    if (opera == 1){ //soma de a + b, a cada 5 acertos sobe a dificuldade, que é contada em conjunto com a subtracao
         if (dificuldade < 5){
             int a = numerosomasub99(rand());
             int b = numerosomasub99(rand());
             printf("%d + %d = ?\n", a, b);
-            int resposta;
             scanf("%d", &resposta);
             if (resposta == a + b){
                 printf("acertou\n");
@@ -57,7 +57,6 @@ int main(){
             int a = numerosomasub999(rand());
             int b = numerosomasub99(rand());
             printf("%d + %d = ?\n", a, b);
-            int resposta;
             scanf("%d", &resposta);
             if (resposta == a + b){
                 printf("acertou\n");
@@ -73,7 +72,6 @@ int main(){
             int a = numerosomasub999(rand());
             int b = numerosomasub999(rand());
             printf("%d + %d = ?\n", a, b);
-            int resposta;
             scanf("%d", &resposta);
             if (resposta == a + b){
                 printf("acertou\n");
@@ -86,13 +84,12 @@ int main(){
         }
     }
 
-    if (opera == 2){ // !!!tem q deixar sempre o maior numero sendo subtraido// n fiz -_-
-                    // pq se n vai ter q adicionar um botao de negativo no bagulho
+    if (opera == 2){ //subtracao de a - b, com a > b, cada 5 acertos sobe a dificuldade, que é contada em conjunto com a da soma
         if (dificuldade < 5){
             int a = numerosomasub99(rand());
             int b = numerosomasub99(rand());
+            troca_se_menor(&a, &b);
             printf("%d - %d = ?\n", a, b);
-            int resposta;
             scanf("%d", &resposta);
             if (resposta == a - b){
                 printf("acertou\n");
@@ -107,8 +104,8 @@ int main(){
         else if (5 <= dificuldade && dificuldade < 10){
             int a = numerosomasub999(rand());
             int b = numerosomasub99(rand());
+            troca_se_menor(&a, &b);
             printf("%d - %d = ?\n", a, b);
-            int resposta;
             scanf("%d", &resposta);
             if (resposta == a - b){
                 printf("acertou\n");
@@ -123,8 +120,8 @@ int main(){
         else if (dificuldade >= 10){
             int a = numerosomasub999(rand());
             int b = numerosomasub999(rand());
+            troca_se_menor(&a, &b);
             printf("%d - %d = ?\n", a, b);
-            int resposta;
             scanf("%d", &resposta);
             if (resposta == a - b){
                 printf("acertou\n");
@@ -138,13 +135,12 @@ int main(){
     }
         
     
-    if (opera == 3){ //da pra resumir esse if com uma funcao, mas faz qm quiser
+    if (opera == 3){ //da pra dar um baita resumo nesses if com funcaos, mas faz qm quiser
 
         if (nivel == 1){
             int a = numeromultA(1, rand()); //multiplicacao de 1,2 ou 10 por 11-20
-            int b = numeromult11_20(rand());
+            int b = numeromultB11_20(rand());
             printf("%d * %d = ?\n", a, b);
-            int resposta;
             scanf("%d", &resposta);
             if (resposta == a * b){
                 printf("acertou\n");
@@ -160,7 +156,6 @@ int main(){
             int a = numeromultA(1, rand()); //multiplicacao de 1,2 ou 10 por 21-50
             int b = numeromultB21_50(rand());
             printf("%d * %d = ?\n", a, b);
-            int resposta;
             scanf("%d", &resposta);
             if (resposta == a * b){
                 printf("acertou\n");
@@ -174,9 +169,8 @@ int main(){
 
         else if (nivel == 4 || nivel == 5){
             int a = numeromultA(1, rand()); //multiplicacao de 1,2 ou 10 por 51-100
-            int b = numeromult51_100(rand());
+            int b = numeromultB51_100(rand());
             printf("%d * %d = ?\n", a, b);
-            int resposta;
             scanf("%d", &resposta);
             if (resposta == a * b){
                 printf("acertou\n");
@@ -192,7 +186,6 @@ int main(){
             int a = numeromultA(2, rand()); //multiplicacao de 4 ou 5 por 11-20
             int b = numeromultB11_20(rand());
             printf("%d * %d = ?\n", a, b);
-            int resposta;
             scanf("%d", &resposta);
             if (resposta == a * b){
                 printf("acertou\n");
@@ -208,7 +201,6 @@ int main(){
             int a = numeromultA(2, rand()); //multiplicacao de 4 ou 5 por 21-50
             int b = numeromultB21_50(rand());
             printf("%d * %d = ?\n", a, b);
-            int resposta;
             scanf("%d", &resposta);
             if (resposta == a * b){
                 printf("acertou\n");
@@ -224,7 +216,6 @@ int main(){
             int a = numeromultA(3, rand()); //multiplicacao de 3,6,8,9 por 11-20
             int b = numeromultB11_20(rand());
             printf("%d * %d = ?\n", a, b);
-            int resposta;
             scanf("%d", &resposta);
             if (resposta == a * b){
                 printf("acertou\n");
@@ -238,9 +229,8 @@ int main(){
 
         else if (nivel == 11 || nivel == 12){
             int a = numeromultA(2, rand()); //multiplicacao de 4 ou 5 por 51-100
-            int b = numeromult51_100(rand());
+            int b = numeromultB51_100(rand());
             printf("%d * %d = ?\n", a, b);
-            int resposta;
             scanf("%d", &resposta);
             if (resposta == a * b){
                 printf("acertou\n");
@@ -256,7 +246,6 @@ int main(){
             int a = numeromultA(4, rand()); //multiplicacao de 7 por 11-20
             int b = numeromultB11_20(rand());
             printf("%d * %d = ?\n", a, b);
-            int resposta;
             scanf("%d", &resposta);
             if (resposta == a * b){
                 printf("acertou\n");
@@ -272,7 +261,6 @@ int main(){
             int a = numeromultA(3, rand()); //multiplicacao de 3,6,8 ou 9 por 21-50
             int b = numeromultB21_50(rand());
             printf("%d * %d = ?\n", a, b);
-            int resposta;
             scanf("%d", &resposta);
             if (resposta == a * b){
                 printf("acertou\n");
@@ -288,7 +276,6 @@ int main(){
             int a = numeromultA(4, rand()); //multiplicacao de 7 por 21-50
             int b = numeromultB21_50(rand());
             printf("%d * %d = ?\n", a, b);
-            int resposta;
             scanf("%d", &resposta);
             if (resposta == a * b){
                 printf("acertou\n");
@@ -302,9 +289,8 @@ int main(){
 
         else if (nivel == 16 || nivel == 17){
             int a = numeromultA(3, rand()); //multiplicacao de 3,6,8 ou 9 por 50-100
-            int b = numeromultB100(rand());
+            int b = numeromultB51_100(rand());
             printf("%d * %d = ?\n", a, b);
-            int resposta;
             scanf("%d", &resposta);
             if (resposta == a * b){
                 printf("acertou\n");
@@ -317,10 +303,24 @@ int main(){
         }
 
         else if (nivel == 18){
-            int a = numeromultA(4, rand()); //multiplicacao de 7 por 50-100
-            int b = numeromultB100(rand());
+            int a = numeromultA(4, rand()); //multiplicacao de 7 por 51-100
+            int b = numeromultB51_100(rand());
             printf("%d * %d = ?\n", a, b);
-            int resposta;
+            scanf("%d", &resposta);
+            if (resposta == a * b){
+                printf("acertou\n");
+                nivel++;
+            }
+            else{
+                printf("game over\n%d * %d = %d\n", a, b, a * b);
+                jogo = false;
+            }
+        }
+
+        else if (nivel >= 19){
+            int a = numeromultA(5, rand()); //multiplicacao de 2 a 9 por 21-50
+            int b = numeromultB21_50(rand());
+            printf("%d * %d = ?\n", a, b);
             scanf("%d", &resposta);
             if (resposta == a * b){
                 printf("acertou\n");
@@ -333,9 +333,205 @@ int main(){
         }
     } // <-- esse é o fim do if da multiplicacao
 
+    if (opera == 4){ //divisao de a / b = r, com r inteiro
+        if (nivel == 1){
+            int b = numeromultA(1, rand()); //divisao de 1,2 ou 10 resultando em 11-20
+            int a = b * numeromultB11_20(rand());
+            printf("%d / %d = ?\n", a, b);
+            scanf("%d", &resposta);
+            if (resposta == a / b){
+                printf("acertou\n");
+                nivel++;
+            }
+            else{
+                printf("game over\n%d / %d = %d\n", a, b, a / b);
+                jogo = false;
+            }
+        }
 
-    } 
-    }
+        else if (nivel == 2 || nivel == 3){
+            int b = numeromultA(1, rand()); //divisao de 1,2 ou 10 resultando em 21-50
+            int a = b * numeromultB21_50(rand());
+            printf("%d / %d = ?\n", a, b);
+            scanf("%d", &resposta);
+            if (resposta == a / b){
+                printf("acertou\n");
+                nivel++;
+            }
+            else{
+                printf("game over\n%d / %d = %d\n", a, b, a / b);
+                jogo = false;
+            }
+        }
+
+        else if (nivel == 4 || nivel == 5){
+            int b = numeromultA(1, rand()); //divisao de 1,2 ou 10 resultando em 51-100
+            int a = b * numeromultB51_100(rand());
+            printf("%d / %d = ?\n", a, b);
+            scanf("%d", &resposta);
+            if (resposta == a / b){
+                printf("acertou\n");
+                nivel++;
+            }
+            else{
+                printf("game over\n%d / %d = %d\n", a, b, a / b);
+                jogo = false;
+            }
+        }
+
+        else if (nivel == 6 || nivel == 7){
+            int b = numeromultA(2, rand()); //divisao de 4 ou 5 resultando em 11-20
+            int a = b * numeromultB11_20(rand());
+            printf("%d / %d = ?\n", a, b);
+            scanf("%d", &resposta);
+            if (resposta == a / b){
+                printf("acertou\n");
+                nivel++;
+            }
+            else{
+                printf("game over\n%d / %d = %d\n", a, b, a / b);
+                jogo = false;
+            }
+        }
+
+        else if (nivel == 8){
+            int b = numeromultA(2, rand()); //divisao de 4 ou 5 resultando em 21-50
+            int a = b * numeromultB21_50(rand());
+            printf("%d / %d = ?\n", a, b);
+            scanf("%d", &resposta);
+            if (resposta == a / b){
+                printf("acertou\n");
+                nivel++;
+            }
+            else{
+                printf("game over\n%d / %d = %d\n", a, b, a / b);
+                jogo = false;
+            }
+        }
+        
+        else if (nivel == 9 || nivel == 10){
+            int b = numeromultA(3, rand()); //divisao de 3,6,8 ou 9 resultando em 11-20
+            int a = b * numeromultB11_20(rand());
+            printf("%d / %d = ?\n", a, b);
+            scanf("%d", &resposta);
+            if (resposta == a / b){
+                printf("acertou\n");
+                nivel++;
+            }
+            else{
+                printf("game over\n%d / %d = %d\n", a, b, a / b);
+                jogo = false;
+            }
+        }
+
+        else if (nivel == 11 || nivel == 12){
+            int b = numeromultA(2, rand()); //divisao de 4 ou 5 resultando em 51-100
+            int a = b * numeromultB51_100(rand());
+            printf("%d / %d = ?\n", a, b);
+            scanf("%d", &resposta);
+            if (resposta == a / b){
+                printf("acertou\n");
+                nivel++;
+            }
+            else{
+                printf("game over\n%d / %d = %d\n", a, b, a / b);
+                jogo = false;
+            }
+        }
+
+        else if (nivel == 13){
+            int b = numeromultA(4, rand()); //divisao de 7 resultando em 11-20
+            int a = b * numeromultB11_20(rand());
+            printf("%d / %d = ?\n", a, b);
+            scanf("%d", &resposta);
+            if (resposta == a / b){
+                printf("acertou\n");
+                nivel++;
+            }
+            else{
+                printf("game over\n%d / %d = %d\n", a, b, a / b);
+                jogo = false;
+            }
+        }
+
+        else if (nivel == 14){
+            int b = numeromultA(3, rand()); //divisao de 3,6,8,9 resultando em 21-50
+            int a = b * numeromultB21_50(rand());
+            printf("%d / %d = ?\n", a, b);
+            scanf("%d", &resposta);
+            if (resposta == a / b){
+                printf("acertou\n");
+                nivel++;
+            }
+            else{
+                printf("game over\n%d / %d = %d\n", a, b, a / b);
+                jogo = false;
+            }
+        }
+
+        else if (nivel == 15){
+            int b = numeromultA(4, rand()); //divisao de 7 resultando em 21-50
+            int a = b * numeromultB21_50(rand());
+            printf("%d / %d = ?\n", a, b);
+            scanf("%d", &resposta);
+            if (resposta == a / b){
+                printf("acertou\n");
+                nivel++;
+            }
+            else{
+                printf("game over\n%d / %d = %d\n", a, b, a / b);
+                jogo = false;
+            }
+        }
+
+        else if (nivel == 16 || nivel == 17){
+            int b = numeromultA(3, rand()); //divisao de 3,6,8 ou 9 resultando em 51-100
+            int a = b * numeromultB51_100(rand());
+            printf("%d / %d = ?\n", a, b);
+            scanf("%d", &resposta);
+            if (resposta == a / b){
+                printf("acertou\n");
+                nivel++;
+            }
+            else{
+                printf("game over\n%d / %d = %d\n", a, b, a / b);
+                jogo = false;
+            }
+        }
+
+        else if (nivel == 18){
+            int b = numeromultA(4, rand()); //divisao de 7 resultando em 51-100
+            int a = b * numeromultB51_100(rand());
+            printf("%d / %d = ?\n", a, b);
+            scanf("%d", &resposta);
+            if (resposta == a / b){
+                printf("acertou\n");
+                nivel++;
+            }
+            else{
+                printf("game over\n%d / %d = %d\n", a, b, a / b);
+                jogo = false;
+            }
+        }
+
+        else if (nivel >=19){
+            int b = numeromultA(5, rand()); //divisao de 2 a 9, resultando em 21-50
+            int a = b * numeromultB21_50(rand());
+            printf("%d / %d = ?\n", a, b);
+            scanf("%d", &resposta);
+            if (resposta == a / b){
+                printf("acertou\n");
+                nivel++;
+            }
+            else{
+                printf("game over\n%d / %d = %d\n", a, b, a / b);
+                jogo = false;
+            }
+        }
+
+        } // <-- fim da divisao
+    } // <-- fim do while do jogo
+    } // <-- fim da main()
 
 
 
@@ -388,7 +584,7 @@ e = d%50 + 51; // numeros de 0 a 49 --> 51 a 100
 return e;
 }
 
-int numeromultA(int nivel, int rand){ //nivel de 1 a 4 (+ 5) 5 = aleatorio
+int numeromultA(int nivel, int rand){ //nivel de 1 a 4 (+ 5) 5 = 2,3,4,5,6,7,8,9
 if (nivel == 1){
     if (rand%3 == 0) return 1;
     if (rand%3 == 1) return 2;
@@ -407,12 +603,20 @@ if (nivel == 3){
     if (rand%4 == 3) return 9;
 }
 
-if (nivel == 4) return 7;
+if (nivel == 4) return 7; //sinceramente, é inutil esse nivel, ta só aqui pra deixar tudo organizado
 
 int x;
 
 if (nivel == 5){
-x = rand%10 + 1; //0 a 9 --> 1 a 10
+x = rand%8 + 2; //0 a 7 --> 2 a 9
 return x;
 }
+}
+
+void troca_se_menor(int *a, int *b){ 
+    if (*a < *b){
+        int temp = *a;
+        *a = *b;
+        *b = temp;
+    }
 }
