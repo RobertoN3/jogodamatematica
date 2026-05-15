@@ -1,0 +1,21 @@
+#include <stdio.h>
+
+int main (){
+
+int x,k = 1;
+
+scanf("%d", &x);
+
+if (x<1)
+x = x*-1;
+
+
+while (x!=1){
+
+k = k*x;
+
+x--;
+}
+
+printf("%d", k);
+}

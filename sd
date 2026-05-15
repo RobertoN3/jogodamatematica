@@ -1,0 +1,459 @@
+[1mdiff --git a/mac2166/PCS/jogodamatematica.c b/mac2166/PCS/jogodamatematica.c[m
+[1mindex b37fb00..434fa40 100644[m
+[1m--- a/mac2166/PCS/jogodamatematica.c[m
+[1m+++ b/mac2166/PCS/jogodamatematica.c[m
+[36m@@ -16,7 +16,7 @@[m [mint numeromultB51_100(int d); //função que gera numeros dificeis de multiplica[m
+ [m
+ int numeromultA(int nivel, int rand); //função que retorna um numero de 1 a 10, depende do nivel[m
+ [m
+[31m-[m
+[32m+[m[32mvoid troca_se_menor(int *a, int *b); //função que troca os numeros de lugar, para a subtração sempre ser o maior numero - o menor numero[m
+ [m
+ [m
+ int main(){[m
+[36m@@ -31,17 +31,17 @@[m [mint main(){[m
+     srand(seed);[m
+ [m
+     int opera;[m
+[32m+[m[32m    int resposta; //guarda a resposta do usuario[m
+ [m
+     while (jogo){[m
+ [m
+     opera = operacao(rand());[m
+ [m
+[31m-    if (opera == 1){[m
+[32m+[m[32m    if (opera == 1){ //soma de a + b, a cada 5 acertos sobe a dificuldade, que é contada em conjunto com a subtracao[m
+         if (dificuldade < 5){[m
+             int a = numerosomasub99(rand());[m
+             int b = numerosomasub99(rand());[m
+             printf("%d + %d = ?\n", a, b);[m
+[31m-            int resposta;[m
+             scanf("%d", &resposta);[m
+             if (resposta == a + b){[m
+                 printf("acertou\n");[m
+[36m@@ -57,7 +57,6 @@[m [mint main(){[m
+             int a = numerosomasub999(rand());[m
+             int b = numerosomasub99(rand());[m
+             printf("%d + %d = ?\n", a, b);[m
+[31m-            int resposta;[m
+             scanf("%d", &resposta);[m
+             if (resposta == a + b){[m
+                 printf("acertou\n");[m
+[36m@@ -73,7 +72,6 @@[m [mint main(){[m
+             int a = numerosomasub999(rand());[m
+             int b = numerosomasub999(rand());[m
+             printf("%d + %d = ?\n", a, b);[m
+[31m-            int resposta;[m
+             scanf("%d", &resposta);[m
+             if (resposta == a + b){[m
+                 printf("acertou\n");[m
+[36m@@ -86,13 +84,12 @@[m [mint main(){[m
+         }[m
+     }[m
+ [m
+[31m-    if (opera == 2){ // !!!tem q deixar sempre o maior numero sendo subtraido// n fiz -_-[m
+[31m-                    // pq se n vai ter q adicionar um botao de negativo no bagulho[m
+[32m+[m[32m    if (opera == 2){ //subtracao de a - b, com a > b, cada 5 acertos sobe a dificuldade, que é contada em conjunto com a da soma[m
+         if (dificuldade < 5){[m
+             int a = numerosomasub99(rand());[m
+             int b = numerosomasub99(rand());[m
+[32m+[m[32m            troca_se_menor(&a, &b);[m
+             printf("%d - %d = ?\n", a, b);[m
+[31m-            int resposta;[m
+             scanf("%d", &resposta);[m
+             if (resposta == a - b){[m
+                 printf("acertou\n");[m
+[36m@@ -107,8 +104,8 @@[m [mint main(){[m
+         else if (5 <= dificuldade && dificuldade < 10){[m
+             int a = numerosomasub999(rand());[m
+             int b = numerosomasub99(rand());[m
+[32m+[m[32m            troca_se_menor(&a, &b);[m
+             printf("%d - %d = ?\n", a, b);[m
+[31m-            int resposta;[m
+             scanf("%d", &resposta);[m
+             if (resposta == a - b){[m
+                 printf("acertou\n");[m
+[36m@@ -123,8 +120,8 @@[m [mint main(){[m
+         else if (dificuldade >= 10){[m
+             int a = numerosomasub999(rand());[m
+             int b = numerosomasub999(rand());[m
+[32m+[m[32m            troca_se_menor(&a, &b);[m
+             printf("%d - %d = ?\n", a, b);[m
+[31m-            int resposta;[m
+             scanf("%d", &resposta);[m
+             if (resposta == a - b){[m
+                 printf("acertou\n");[m
+[36m@@ -138,13 +135,12 @@[m [mint main(){[m
+     }[m
+         [m
+     [m
+[31m-    if (opera == 3){ //da pra resumir esse if com uma funcao, mas faz qm quiser[m
+[32m+[m[32m    if (opera == 3){ //da pra dar um baita resumo nesses if com funcaos, mas faz qm quiser[m
+ [m
+         if (nivel == 1){[m
+             int a = numeromultA(1, rand()); //multiplicacao de 1,2 ou 10 por 11-20[m
+[31m-            int b = numeromult11_20(rand());[m
+[32m+[m[32m            int b = numeromultB11_20(rand());[m
+             printf("%d * %d = ?\n", a, b);[m
+[31m-            int resposta;[m
+             scanf("%d", &resposta);[m
+             if (resposta == a * b){[m
+                 printf("acertou\n");[m
+[36m@@ -160,7 +156,6 @@[m [mint main(){[m
+             int a = numeromultA(1, rand()); //multiplicacao de 1,2 ou 10 por 21-50[m
+             int b = numeromultB21_50(rand());[m
+             printf("%d * %d = ?\n", a, b);[m
+[31m-            int resposta;[m
+             scanf("%d", &resposta);[m
+             if (resposta == a * b){[m
+                 printf("acertou\n");[m
+[36m@@ -174,9 +169,8 @@[m [mint main(){[m
+ [m
+         else if (nivel == 4 || nivel == 5){[m
+             int a = numeromultA(1, rand()); //multiplicacao de 1,2 ou 10 por 51-100[m
+[31m-            int b = numeromult51_100(rand());[m
+[32m+[m[32m            int b = numeromultB51_100(rand());[m
+             printf("%d * %d = ?\n", a, b);[m
+[31m-            int resposta;[m
+             scanf("%d", &resposta);[m
+             if (resposta == a * b){[m
+                 printf("acertou\n");[m
+[36m@@ -192,7 +186,6 @@[m [mint main(){[m
+             int a = numeromultA(2, rand()); //multiplicacao de 4 ou 5 por 11-20[m
+             int b = numeromultB11_20(rand());[m
+             printf("%d * %d = ?\n", a, b);[m
+[31m-            int resposta;[m
+             scanf("%d", &resposta);[m
+             if (resposta == a * b){[m
+                 printf("acertou\n");[m
+[36m@@ -208,7 +201,6 @@[m [mint main(){[m
+             int a = numeromultA(2, rand()); //multiplicacao de 4 ou 5 por 21-50[m
+             int b = numeromultB21_50(rand());[m
+             printf("%d * %d = ?\n", a, b);[m
+[31m-            int resposta;[m
+             scanf("%d", &resposta);[m
+             if (resposta == a * b){[m
+                 printf("acertou\n");[m
+[36m@@ -224,7 +216,6 @@[m [mint main(){[m
+             int a = numeromultA(3, rand()); //multiplicacao de 3,6,8,9 por 11-20[m
+             int b = numeromultB11_20(rand());[m
+             printf("%d * %d = ?\n", a, b);[m
+[31m-            int resposta;[m
+             scanf("%d", &resposta);[m
+             if (resposta == a * b){[m
+                 printf("acertou\n");[m
+[36m@@ -238,9 +229,8 @@[m [mint main(){[m
+ [m
+         else if (nivel == 11 || nivel == 12){[m
+             int a = numeromultA(2, rand()); //multiplicacao de 4 ou 5 por 51-100[m
+[31m-            int b = numeromult51_100(rand());[m
+[32m+[m[32m            int b = numeromultB51_100(rand());[m
+             printf("%d * %d = ?\n", a, b);[m
+[31m-            int resposta;[m
+             scanf("%d", &resposta);[m
+             if (resposta == a * b){[m
+                 printf("acertou\n");[m
+[36m@@ -256,7 +246,6 @@[m [mint main(){[m
+             int a = numeromultA(4, rand()); //multiplicacao de 7 por 11-20[m
+             int b = numeromultB11_20(rand());[m
+             printf("%d * %d = ?\n", a, b);[m
+[31m-            int resposta;[m
+             scanf("%d", &resposta);[m
+             if (resposta == a * b){[m
+                 printf("acertou\n");[m
+[36m@@ -272,7 +261,6 @@[m [mint main(){[m
+             int a = numeromultA(3, rand()); //multiplicacao de 3,6,8 ou 9 por 21-50[m
+             int b = numeromultB21_50(rand());[m
+             printf("%d * %d = ?\n", a, b);[m
+[31m-            int resposta;[m
+             scanf("%d", &resposta);[m
+             if (resposta == a * b){[m
+                 printf("acertou\n");[m
+[36m@@ -288,7 +276,6 @@[m [mint main(){[m
+             int a = numeromultA(4, rand()); //multiplicacao de 7 por 21-50[m
+             int b = numeromultB21_50(rand());[m
+             printf("%d * %d = ?\n", a, b);[m
+[31m-            int resposta;[m
+             scanf("%d", &resposta);[m
+             if (resposta == a * b){[m
+                 printf("acertou\n");[m
+[36m@@ -302,9 +289,8 @@[m [mint main(){[m
+ [m
+         else if (nivel == 16 || nivel == 17){[m
+             int a = numeromultA(3, rand()); //multiplicacao de 3,6,8 ou 9 por 50-100[m
+[31m-            int b = numeromultB100(rand());[m
+[32m+[m[32m            int b = numeromultB51_100(rand());[m
+             printf("%d * %d = ?\n", a, b);[m
+[31m-            int resposta;[m
+             scanf("%d", &resposta);[m
+             if (resposta == a * b){[m
+                 printf("acertou\n");[m
+[36m@@ -317,10 +303,24 @@[m [mint main(){[m
+         }[m
+ [m
+         else if (nivel == 18){[m
+[31m-            int a = numeromultA(4, rand()); //multiplicacao de 7 por 50-100[m
+[31m-            int b = numeromultB100(rand());[m
+[32m+[m[32m            int a = numeromultA(4, rand()); //multiplicacao de 7 por 51-100[m
+[32m+[m[32m            int b = numeromultB51_100(rand());[m
+[32m+[m[32m            printf("%d * %d = ?\n", a, b);[m
+[32m+[m[32m            scanf("%d", &resposta);[m
+[32m+[m[32m            if (resposta == a * b){[m
+[32m+[m[32m                printf("acertou\n");[m
+[32m+[m[32m                nivel++;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            else{[m
+[32m+[m[32m                printf("game over\n%d * %d = %d\n", a, b, a * b);[m
+[32m+[m[32m                jogo = false;[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        else if (nivel >= 19){[m
+[32m+[m[32m            int a = numeromultA(5, rand()); //multiplicacao de 2 a 9 por 21-50[m
+[32m+[m[32m            int b = numeromultB21_50(rand());[m
+             printf("%d * %d = ?\n", a, b);[m
+[31m-            int resposta;[m
+             scanf("%d", &resposta);[m
+             if (resposta == a * b){[m
+                 printf("acertou\n");[m
+[36m@@ -333,9 +333,205 @@[m [mint main(){[m
+         }[m
+     } // <-- esse é o fim do if da multiplicacao[m
+ [m
+[32m+[m[32m    if (opera == 4){ //divisao de a / b = r, com r inteiro[m
+[32m+[m[32m        if (nivel == 1){[m
+[32m+[m[32m            int b = numeromultA(1, rand()); //divisao de 1,2 ou 10 resultando em 11-20[m
+[32m+[m[32m            int a = b * numeromultB11_20(rand());[m
+[32m+[m[32m            printf("%d / %d = ?\n", a, b);[m
+[32m+[m[32m            scanf("%d", &resposta);[m
+[32m+[m[32m            if (resposta == a / b){[m
+[32m+[m[32m                printf("acertou\n");[m
+[32m+[m[32m                nivel++;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            else{[m
+[32m+[m[32m                printf("game over\n%d / %d = %d\n", a, b, a / b);[m
+[32m+[m[32m                jogo = false;[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+ [m
+[31m-    } [m
+[31m-    }[m
+[32m+[m[32m        else if (nivel == 2 || nivel == 3){[m
+[32m+[m[32m            int b = numeromultA(1, rand()); //divisao de 1,2 ou 10 resultando em 21-50[m
+[32m+[m[32m            int a = b * numeromultB21_50(rand());[m
+[32m+[m[32m            printf("%d / %d = ?\n", a, b);[m
+[32m+[m[32m            scanf("%d", &resposta);[m
+[32m+[m[32m            if (resposta == a / b){[m
+[32m+[m[32m                printf("acertou\n");[m
+[32m+[m[32m                nivel++;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            else{[m
+[32m+[m[32m                printf("game over\n%d / %d = %d\n", a, b, a / b);[m
+[32m+[m[32m                jogo = false;[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        else if (nivel == 4 || nivel == 5){[m
+[32m+[m[32m            int b = numeromultA(1, rand()); //divisao de 1,2 ou 10 resultando em 51-100[m
+[32m+[m[32m            int a = b * numeromultB51_100(rand());[m
+[32m+[m[32m            printf("%d / %d = ?\n", a, b);[m
+[32m+[m[32m            scanf("%d", &resposta);[m
+[32m+[m[32m            if (resposta == a / b){[m
+[32m+[m[32m                printf("acertou\n");[m
+[32m+[m[32m                nivel++;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            else{[m
+[32m+[m[32m                printf("game over\n%d / %d = %d\n", a, b, a / b);[m
+[32m+[m[32m                jogo = false;[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        else if (nivel == 6 || nivel == 7){[m
+[32m+[m[32m            int b = numeromultA(2, rand()); //divisao de 4 ou 5 resultando em 11-20[m
+[32m+[m[32m            int a = b * numeromultB11_20(rand());[m
+[32m+[m[32m            printf("%d / %d = ?\n", a, b);[m
+[32m+[m[32m            scanf("%d", &resposta);[m
+[32m+[m[32m            if (resposta == a / b){[m
+[32m+[m[32m                printf("acertou\n");[m
+[32m+[m[32m                nivel++;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            else{[m
+[32m+[m[32m                printf("game over\n%d / %d = %d\n", a, b, a / b);[m
+[32m+[m[32m                jogo = false;[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        else if (nivel == 8){[m
+[32m+[m[32m            int b = numeromultA(2, rand()); //divisao de 4 ou 5 resultando em 21-50[m
+[32m+[m[32m            int a = b * numeromultB21_50(rand());[m
+[32m+[m[32m            printf("%d / %d = ?\n", a, b);[m
+[32m+[m[32m            scanf("%d", &resposta);[m
+[32m+[m[32m            if (resposta == a / b){[m
+[32m+[m[32m                printf("acertou\n");[m
+[32m+[m[32m                nivel++;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            else{[m
+[32m+[m[32m                printf("game over\n%d / %d = %d\n", a, b, a / b);[m
+[32m+[m[32m                jogo = false;[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m[41m        [m
+[32m+[m[32m        else if (nivel == 9 || nivel == 10){[m
+[32m+[m[32m            int b = numeromultA(3, rand()); //divisao de 3,6,8 ou 9 resultando em 11-20[m
+[32m+[m[32m            int a = b * numeromultB11_20(rand());[m
+[32m+[m[32m            printf("%d / %d = ?\n", a, b);[m
+[32m+[m[32m            scanf("%d", &resposta);[m
+[32m+[m[32m            if (resposta == a / b){[m
+[32m+[m[32m                printf("acertou\n");[m
+[32m+[m[32m                nivel++;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            else{[m
+[32m+[m[32m                printf("game over\n%d / %d = %d\n", a, b, a / b);[m
+[32m+[m[32m                jogo = false;[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        else if (nivel == 11 || nivel == 12){[m
+[32m+[m[32m            int b = numeromultA(2, rand()); //divisao de 4 ou 5 resultando em 51-100[m
+[32m+[m[32m            int a = b * numeromultB51_100(rand());[m
+[32m+[m[32m            printf("%d / %d = ?\n", a, b);[m
+[32m+[m[32m            scanf("%d", &resposta);[m
+[32m+[m[32m            if (resposta == a / b){[m
+[32m+[m[32m                printf("acertou\n");[m
+[32m+[m[32m                nivel++;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            else{[m
+[32m+[m[32m                printf("game over\n%d / %d = %d\n", a, b, a / b);[m
+[32m+[m[32m                jogo = false;[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        else if (nivel == 13){[m
+[32m+[m[32m            int b = numeromultA(4, rand()); //divisao de 7 resultando em 11-20[m
+[32m+[m[32m            int a = b * numeromultB11_20(rand());[m
+[32m+[m[32m            printf("%d / %d = ?\n", a, b);[m
+[32m+[m[32m            scanf("%d", &resposta);[m
+[32m+[m[32m            if (resposta == a / b){[m
+[32m+[m[32m                printf("acertou\n");[m
+[32m+[m[32m                nivel++;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            else{[m
+[32m+[m[32m                printf("game over\n%d / %d = %d\n", a, b, a / b);[m
+[32m+[m[32m                jogo = false;[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        else if (nivel == 14){[m
+[32m+[m[32m            int b = numeromultA(3, rand()); //divisao de 3,6,8,9 resultando em 21-50[m
+[32m+[m[32m            int a = b * numeromultB21_50(rand());[m
+[32m+[m[32m            printf("%d / %d = ?\n", a, b);[m
+[32m+[m[32m            scanf("%d", &resposta);[m
+[32m+[m[32m            if (resposta == a / b){[m
+[32m+[m[32m                printf("acertou\n");[m
+[32m+[m[32m                nivel++;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            else{[m
+[32m+[m[32m                printf("game over\n%d / %d = %d\n", a, b, a / b);[m
+[32m+[m[32m                jogo = false;[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        else if (nivel == 15){[m
+[32m+[m[32m            int b = numeromultA(4, rand()); //divisao de 7 resultando em 21-50[m
+[32m+[m[32m            int a = b * numeromultB21_50(rand());[m
+[32m+[m[32m            printf("%d / %d = ?\n", a, b);[m
+[32m+[m[32m            scanf("%d", &resposta);[m
+[32m+[m[32m            if (resposta == a / b){[m
+[32m+[m[32m                printf("acertou\n");[m
+[32m+[m[32m                nivel++;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            else{[m
+[32m+[m[32m                printf("game over\n%d / %d = %d\n", a, b, a / b);[m
+[32m+[m[32m                jogo = false;[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        else if (nivel == 16 || nivel == 17){[m
+[32m+[m[32m            int b = numeromultA(3, rand()); //divisao de 3,6,8 ou 9 resultando em 51-100[m
+[32m+[m[32m            int a = b * numeromultB51_100(rand());[m
+[32m+[m[32m            printf("%d / %d = ?\n", a, b);[m
+[32m+[m[32m            scanf("%d", &resposta);[m
+[32m+[m[32m            if (resposta == a / b){[m
+[32m+[m[32m                printf("acertou\n");[m
+[32m+[m[32m                nivel++;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            else{[m
+[32m+[m[32m                printf("game over\n%d / %d = %d\n", a, b, a / b);[m
+[32m+[m[32m                jogo = false;[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        else if (nivel == 18){[m
+[32m+[m[32m            int b = numeromultA(4, rand()); //divisao de 7 resultando em 51-100[m
+[32m+[m[32m            int a = b * numeromultB51_100(rand());[m
+[32m+[m[32m            printf("%d / %d = ?\n", a, b);[m
+[32m+[m[32m            scanf("%d", &resposta);[m
+[32m+[m[32m            if (resposta == a / b){[m
+[32m+[m[32m                printf("acertou\n");[m
+[32m+[m[32m                nivel++;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            else{[m
+[32m+[m[32m                printf("game over\n%d / %d = %d\n", a, b, a / b);[m
+[32m+[m[32m                jogo = false;[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        else if (nivel >=19){[m
+[32m+[m[32m            int b = numeromultA(5, rand()); //divisao de 2 a 9, resultando em 21-50[m
+[32m+[m[32m            int a = b * numeromultB21_50(rand());[m
+[32m+[m[32m            printf("%d / %d = ?\n", a, b);[m
+[32m+[m[32m            scanf("%d", &resposta);[m
+[32m+[m[32m            if (resposta == a / b){[m
+[32m+[m[32m                printf("acertou\n");[m
+[32m+[m[32m                nivel++;[m
+[32m+[m[32m            }[m
+[32m+[m[32m            else{[m
+[32m+[m[32m                printf("game over\n%d / %d = %d\n", a, b, a / b);[m
+[32m+[m[32m                jogo = false;[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        } // <-- fim da divisao[m
+[32m+[m[32m    } // <-- fim do while do jogo[m
+[32m+[m[32m    } // <-- fim da main()[m
+ [m
+ [m
+ [m
+[36m@@ -388,7 +584,7 @@[m [me = d%50 + 51; // numeros de 0 a 49 --> 51 a 100[m
+ return e;[m
+ }[m
+ [m
+[31m-int numeromultA(int nivel, int rand){ //nivel de 1 a 4 (+ 5) 5 = aleatorio[m
+[32m+[m[32mint numeromultA(int nivel, int rand){ //nivel de 1 a 4 (+ 5) 5 = 2,3,4,5,6,7,8,9[m
+ if (nivel == 1){[m
+     if (rand%3 == 0) return 1;[m
+     if (rand%3 == 1) return 2;[m
+[36m@@ -407,12 +603,20 @@[m [mif (nivel == 3){[m
+     if (rand%4 == 3) return 9;[m
+ }[m
+ [m
+[31m-if (nivel == 4) return 7;[m
+[32m+[m[32mif (nivel == 4) return 7; //sinceramente, é inutil esse nivel, ta só aqui pra deixar tudo organizado[m
+ [m
+ int x;[m
+ [m
+ if (nivel == 5){[m
+[31m-x = rand%10 + 1; //0 a 9 --> 1 a 10[m
+[32m+[m[32mx = rand%8 + 2; //0 a 7 --> 2 a 9[m
+ return x;[m
+ }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mvoid troca_se_menor(int *a, int *b){[m[41m [m
+[32m+[m[32m    if (*a < *b){[m
+[32m+[m[32m        int temp = *a;[m
+[32m+[m[32m        *a = *b;[m
+[32m+[m[32m        *b = temp;[m
+[32m+[m[32m    }[m
+ }[m
+\ No newline at end of file[m
