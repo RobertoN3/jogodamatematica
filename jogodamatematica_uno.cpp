@@ -177,7 +177,7 @@ int obterRespostaUsuario() {
       tempoUltimoDigito = millis(); 
     }
     
-    if (digitouAlgo && (millis() - tempoUltimoDigito > 2000)) {
+    if (digitouAlgo && (millis() - tempoUltimoDigito > 4500)) {
       break;
     }
   }
